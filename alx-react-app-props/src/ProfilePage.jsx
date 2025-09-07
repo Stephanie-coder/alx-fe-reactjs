@@ -1,7 +1,8 @@
-import UserInfo from './UserInfo';
+// src/ProfilePage.jsx
+import UserInfo from "./UserInfo";
 
-function ProfilePage({ userData }) {
-  return <UserInfo userData={userData} />;
+function ProfilePage() {
+  return <UserInfo />;
 }
 
 export default ProfilePage;
