@@ -2,6 +2,7 @@ import Header from './components/Header';
 import MainContent from './components/MainContent';
 import Footer from './components/Footer';
 import UserProfile from './components/UserProfile';
+import Counter from './components/Counter';   // 👈 import Counter
 import './App.css';
 
 function App() {
@@ -15,11 +16,13 @@ function App() {
       <UserProfile name="Brian" age="30" bio="A foodie and travel enthusiast" />
       <UserProfile name="Chloe" age="28" bio="Enjoys painting and reading novels" />
 
+      {/* 👇 Counter Component */}
+      <h2>Counter App</h2>
+      <Counter />
+
       <Footer />
     </>
   );
 }
 
 export default App;
-
-
