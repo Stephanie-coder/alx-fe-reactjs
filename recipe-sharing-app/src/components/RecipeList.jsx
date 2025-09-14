@@ -2,15 +2,15 @@ import { useRecipeStore } from './recipeStore';
 import { Link } from 'react-router-dom';
 
 const RecipeList = () => {
-  const recipes = useRecipeStore((state) => state.recipes);
+  const filteredRecipes = useRecipeStore((state) => state.filteredRecipes);
 
   return (
     <div style={{ marginTop: '1rem' }}>
       <h2>Recipe List</h2>
-      {recipes.length === 0 ? (
-        <p>No recipes added yet.</p>
+      {filteredRecipes.length === 0 ? (
+        <p>No recipes found.</p>
       ) : (
-        recipes.map((recipe) => (
+        filteredRecipes.map((recipe) => (
           <div
             key={recipe.id}
             style={{
@@ -32,3 +32,4 @@ const RecipeList = () => {
 };
 
 export default RecipeList;
+
