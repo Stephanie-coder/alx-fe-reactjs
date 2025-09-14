@@ -1,4 +1,5 @@
 import { useRecipeStore } from "./recipeStore";
+import { Link } from "react-router-dom"; // ✅ Add this import
 
 const RecipeList = () => {
   const recipes = useRecipeStore((state) => state.recipes);
@@ -24,10 +25,13 @@ const RecipeList = () => {
                 borderRadius: '5px',
               }}
             >
-              <h3>{recipe.title}</h3>
+              {/* ✅ Make the title clickable using Link */}
+              <Link to={`/recipe/${recipe.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                <h3>{recipe.title}</h3>
+              </Link>
+
               <p>{recipe.description}</p>
 
-              {/* ✅ Favorite button */}
               <button
                 onClick={() =>
                   isFavorite
