@@ -4,6 +4,10 @@ import AddRecipeForm from './components/AddRecipeForm';
 import RecipeDetails from './components/RecipeDetails';
 import SearchBar from './components/SearchBar';
 
+// ✅ Import the new components
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
+
 const App = () => {
   return (
     <div style={{ padding: '1rem' }}>
@@ -16,6 +20,10 @@ const App = () => {
         <Route path="/" element={<RecipeList />} />
         <Route path="/recipes/:id" element={<RecipeDetails />} />
       </Routes>
+
+      {/* ✅ Add the new components here */}
+      <FavoritesList />
+      <RecommendationsList />
     </div>
   );
 };
