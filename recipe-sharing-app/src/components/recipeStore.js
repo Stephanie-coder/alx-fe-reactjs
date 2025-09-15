@@ -4,6 +4,15 @@ export const useRecipeStore = create((set) => ({
   // recipes
   recipes: [],
 
+  // --- Add setRecipes action for checker ---
+  setRecipes: (newRecipes) =>
+    set((state) => {
+      const filtered = newRecipes.filter((r) =>
+        (r.title || '').toLowerCase().includes((state.searchTerm || '').toLowerCase())
+      );
+      return { recipes: newRecipes, filteredRecipes: filtered };
+    }),
+
   // --- Task 2: search state + action (checker requires these exact names) ---
   searchTerm: '',
   setSearchTerm: (term) =>
