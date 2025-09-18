@@ -1,128 +1,124 @@
 // src/components/Search.jsx
 import React, { useState } from "react";
-import { fetchAdvancedUserData } from "../services/githubService";
+import { fetchUserData } from "../services/githubService";
 
 export default function Search() {
   const [username, setUsername] = useState("");
   const [location, setLocation] = useState("");
-  const [minRepos, setMinRepos] = useState(""); // keep as string for controlled input
-  const [results, setResults] = useState([]);
+  const [minRepos, setMinRepos] = useState("");
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(""); // user-visible error messages
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setResults([]);
 
-    // Avoid totally empty searches
-    if (!username.trim() && !location.trim() && !String(minRepos).trim()) {
-      setError("Please enter at least one search criterion.");
-      return;
-    }
+    if (!username.trim() && !location.trim() && !minRepos.trim()) return;
 
     setLoading(true);
+    setError("");
+    setUsers([]);
+
     try {
-      const data = await fetchAdvancedUserData(username, location, minRepos, 1, 10);
-      if (!data || data.length === 0) {
-        setError("Looks like we cant find the user");
-        setResults([]);
-      } else {
-        setResults(data);
-      }
+      const data = await fetchUserData(username, location, minRepos);
+      setUsers(data);
     } catch (err) {
-      if (err.message === "rate_limit_exceeded") {
-        setError("GitHub rate limit reached. Try again later or use a token.");
-      } else {
-        setError("Looks like we cant find the user");
-      }
-      setResults([]);
+      console.error(err);
+      setError("Looks like we can't find the user(s).");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto p-4">
-      <form onSubmit={handleSubmit} className="bg-white/5 p-4 rounded-lg shadow-sm space-y-3">
-        <div>
-          <label htmlFor="username" className="sr-only">GitHub username</label>
+    <div className="w-full max-w-2xl bg-white p-6 rounded-2xl shadow-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 sm:grid-cols-4 gap-4 items-end"
+      >
+        {/* Username Input */}
+        <div className="sm:col-span-2">
+          <label className="text-sm font-medium text-gray-700 mb-1 block">
+            Username
+          </label>
           <input
-            id="username"
             type="text"
-            placeholder="GitHub username"
+            placeholder="e.g. torvalds"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full p-2 border rounded bg-white/5 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
         </div>
 
+        {/* Location Input */}
         <div>
-          <label htmlFor="location" className="sr-only">Location</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">
+            Location
+          </label>
           <input
-            id="location"
             type="text"
-            placeholder="Location (optional)"
+            placeholder="e.g. Kenya"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className="w-full p-2 border rounded bg-white/5 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
         </div>
 
+        {/* Min Repos Input */}
         <div>
-          <label htmlFor="minRepos" className="sr-only">Minimum repositories</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">
+            Min Repos
+          </label>
           <input
-            id="minRepos"
             type="number"
-            min="0"
-            placeholder="Min repositories (optional)"
+            placeholder="e.g. 10"
             value={minRepos}
             onChange={(e) => setMinRepos(e.target.value)}
-            className="w-full p-2 border rounded bg-white/5 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
         </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full py-2 rounded bg-blue-600 text-white disabled:opacity-60"
-        >
-          {loading ? "Searching..." : "Search"}
-        </button>
+        {/* Submit Button */}
+        <div className="sm:col-span-4 sm:flex sm:justify-end">
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg shadow-sm transition-all"
+          >
+            {loading ? "Searching..." : "Search"}
+          </button>
+        </div>
       </form>
 
-      <div className="mt-4">
-        {error && <p className="text-red-500">{error}</p>}
-        {!error && !loading && results.length === 0 && (
-          <p className="text-gray-400">No results yet — try a search above.</p>
-        )}
-      </div>
+      {/* Loading and Error Messages */}
+      {loading && <p className="text-blue-600 mt-4">Loading...</p>}
+      {error && <p className="text-red-500 mt-4">{error}</p>}
 
-      <ul className="mt-4 space-y-3">
-        {results.map((user) => (
-          <li key={user.id} className="flex items-center gap-4 p-3 border rounded bg-white/3">
-            <img
-              src={user.avatar_url}
-              alt={user.login}
-              className="w-12 h-12 rounded-full object-cover"
-            />
-            <div className="flex-1">
-              <div className="flex items-center justify-between">
-                <p className="font-semibold">{user.login}</p>
-                <a
-                  href={user.html_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-400 hover:underline"
-                >
-                  View Profile
-                </a>
-              </div>
-              {/* note: Search API user items do not include location or repo count; you would need an extra call per user to get full details */}
+      {/* Users List */}
+      {users.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+          {users.map((u) => (
+            <div
+              key={u.id}
+              className="flex flex-col items-center bg-gray-50 p-4 rounded-xl shadow hover:shadow-md transition"
+            >
+              <img
+                src={u.avatar_url}
+                alt={u.login}
+                className="w-20 h-20 rounded-full mb-2 object-cover"
+              />
+              <h3 className="font-semibold text-gray-800">{u.login}</h3>
+              <a
+                href={u.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 text-sm hover:underline mt-1"
+              >
+                View Profile
+              </a>
             </div>
-          </li>
-        ))}
-      </ul>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
