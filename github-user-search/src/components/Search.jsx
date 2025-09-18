@@ -23,7 +23,7 @@ export default function Search() {
       setUsers(data);
     } catch (err) {
       console.error(err);
-      setError("Looks like we can't find the user(s).");
+      setError("Looks like we cant find the user");
     } finally {
       setLoading(false);
     }
@@ -85,7 +85,14 @@ export default function Search() {
       </form>
 
       {loading && <p className="text-blue-600 mt-4">Loading...</p>}
+
+      {/* Display error from failed fetch */}
       {error && <p className="text-red-500 mt-4">{error}</p>}
+
+      {/* Display message if no users found */}
+      {!loading && users.length === 0 && username && !error && (
+        <p className="text-red-500 mt-4">Looks like we cant find the user</p>
+      )}
 
       {users.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
@@ -115,4 +122,3 @@ export default function Search() {
     </div>
   );
 }
-
