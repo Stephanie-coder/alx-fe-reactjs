@@ -1,4 +1,3 @@
-// src/components/Search.jsx
 import React, { useState } from "react";
 import { fetchUserData } from "../services/githubService";
 
@@ -36,7 +35,6 @@ export default function Search() {
         onSubmit={handleSubmit}
         className="grid grid-cols-1 sm:grid-cols-4 gap-4 items-end"
       >
-        {/* Username Input */}
         <div className="sm:col-span-2">
           <label className="text-sm font-medium text-gray-700 mb-1 block">
             Username
@@ -50,7 +48,6 @@ export default function Search() {
           />
         </div>
 
-        {/* Location Input */}
         <div>
           <label className="text-sm font-medium text-gray-700 mb-1 block">
             Location
@@ -64,7 +61,6 @@ export default function Search() {
           />
         </div>
 
-        {/* Min Repos Input */}
         <div>
           <label className="text-sm font-medium text-gray-700 mb-1 block">
             Min Repos
@@ -78,7 +74,6 @@ export default function Search() {
           />
         </div>
 
-        {/* Submit Button */}
         <div className="sm:col-span-4 sm:flex sm:justify-end">
           <button
             type="submit"
@@ -89,11 +84,9 @@ export default function Search() {
         </div>
       </form>
 
-      {/* Loading and Error Messages */}
       {loading && <p className="text-blue-600 mt-4">Loading...</p>}
       {error && <p className="text-red-500 mt-4">{error}</p>}
 
-      {/* Users List */}
       {users.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
           {users.map((u) => (
@@ -122,3 +115,4 @@ export default function Search() {
     </div>
   );
 }
+
