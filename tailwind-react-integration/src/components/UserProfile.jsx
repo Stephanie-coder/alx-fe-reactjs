@@ -4,7 +4,7 @@ function UserProfile() {
       <img
         src="https://i.pravatar.cc/150"
         alt="User"
-        className="rounded-full w-[150px] h-[150px] object-cover mx-auto"
+        className="w-36 h-36 rounded-full mx-auto"
       />
       <h1 className="text-xl text-blue-800 my-4">John Doe</h1>
       <p className="text-gray-600 text-base">
