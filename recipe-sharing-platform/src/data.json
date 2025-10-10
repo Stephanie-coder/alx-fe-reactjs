@@ -3,18 +3,63 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "200g spaghetti",
+      "100g pancetta or bacon",
+      "2 large eggs",
+      "50g grated Parmesan cheese",
+      "Salt and black pepper to taste"
+    ],
+    "instructions": [
+      "Cook spaghetti in salted boiling water until al dente.",
+      "In a pan, fry pancetta until crispy.",
+      "In a bowl, whisk eggs and Parmesan together.",
+      "Drain pasta and combine with pancetta, then remove from heat.",
+      "Quickly stir in the egg mixture and season with black pepper."
+    ]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
-    "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://via.placeholder.com/150"
+    "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery and creamy tomato-based gravy.",
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "500g boneless chicken",
+      "1 cup yogurt",
+      "2 tbsp tikka masala paste",
+      "1 onion, chopped",
+      "1 cup tomato puree",
+      "1/2 cup cream",
+      "Salt and garam masala to taste"
+    ],
+    "instructions": [
+      "Marinate chicken in yogurt and tikka masala paste for 2 hours.",
+      "Grill or pan-fry the chicken until golden.",
+      "In a pan, sauté onions until soft, then add tomato puree.",
+      "Stir in cream and garam masala, then simmer.",
+      "Add grilled chicken and cook for 10 more minutes."
+    ]
   },
   {
     "id": 3,
     "title": "Avocado Toast",
     "summary": "Simple, delicious avocado toast topped with eggs, tomatoes, and chili flakes.",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "2 slices of bread",
+      "1 ripe avocado",
+      "1 egg (optional)",
+      "Cherry tomatoes",
+      "Salt, pepper, and chili flakes"
+    ],
+    "instructions": [
+      "Toast the bread slices until golden.",
+      "Mash the avocado with salt and pepper.",
+      "Spread avocado on the toast and top with sliced tomatoes.",
+      "Add a fried egg on top if desired.",
+      "Sprinkle chili flakes and serve immediately."
+    ]
   }
 ]
+
