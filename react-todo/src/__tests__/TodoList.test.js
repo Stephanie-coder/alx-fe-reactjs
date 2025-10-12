@@ -4,24 +4,27 @@ import TodoList from "../components/TodoList";
 
 test("renders the TodoList component", () => {
   render(<TodoList />);
-  expect(screen.getByText("Todo List")).toBeInTheDocument();
+  const title = screen.getByText("Todo List");
+  expect(title).toBeInTheDocument();
 });
 
 test("adds a new todo when submitted", () => {
   render(<TodoList />);
 
-  const input = screen.getByPlaceholderText("Add a new todo"); // Make sure your AddTodoForm has this placeholder
-  const button = screen.getByText("Add");
+  const input = screen.getByPlaceholderText("Add a new todo");
+  const button = screen.getByRole("button", { name: /add/i });
 
   fireEvent.change(input, { target: { value: "New Todo" } });
   fireEvent.click(button);
 
-  expect(screen.getByText("New Todo")).toBeInTheDocument();
+  const newTodo = screen.getByText("New Todo");
+  expect(newTodo).toBeInTheDocument();
 });
 
-test("toggles a todo’s completion state", () => {
+test("toggles a todo's completion state", () => {
   render(<TodoList />);
   const todoItem = screen.getByText("Learn React");
+
   fireEvent.click(todoItem);
   expect(todoItem).toHaveStyle("text-decoration: line-through");
 });
