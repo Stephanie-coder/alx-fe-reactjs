@@ -10,10 +10,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Home Page */}
         <Route path="/" element={<Home />} />
-
-        {/* Protected Profile Routes */}
         <Route
           path="/profile/*"
           element={
@@ -22,12 +19,9 @@ function App() {
             </ProtectedRoute>
           }
         >
-          {/* Nested routes under Profile */}
           <Route path="details" element={<ProfileDetails />} />
           <Route path="settings" element={<ProfileSettings />} />
         </Route>
-
-        {/* Dynamic Route Example */}
         <Route path="/user/:userId" element={<UserProfile />} />
       </Routes>
     </Router>
@@ -35,3 +29,4 @@ function App() {
 }
 
 export default App;
+
